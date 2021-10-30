@@ -32,12 +32,6 @@ class Hotel(Resource):
     argumentos.add_argument('preco')
     argumentos.add_argument('cidade')
 
-    def find_hotel(hotel_id):
-        for i in hoteis:
-            if i['hotel_id'] == hotel_id:
-                return i
-        return None
-
     def get(self,hotel_id):
         hotel = Hotel.find_hotel(hotel_id)
 
@@ -46,14 +40,13 @@ class Hotel(Resource):
         return {'message':'Hotel não ecnontrado'}, 404
     
     def post(self,hotel_id):
-        
+        if HotelModel.find_hotel(hotel_id):
+            return {"message":"Hotel '{}' is alredy registered".format(hotel_id)}
+
         dados = Hotel.argumentos.parse_args()
-
-        hotel_objeto = HotelModel(hotel_id, **dados)
-        novo_hotel = hotel_objeto.transforma_json()
-
-        hoteis.append(novo_hotel)
-        return novo_hotel, 200
+        hotel = HotelModel(hotel_id, **dados)
+        hotel.save_register()
+        return hotel.transform_json()
 
     def put(self,hotel_id):
 

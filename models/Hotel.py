@@ -17,7 +17,7 @@ class HotelModel(banco.Model):
         self.preco = preco
         self.cidade = cidade
 
-    def transforma_json(self):
+    def transform_json(self):
         return{
             'hotel_id': self.hotel_id,
             'nome': self.nome,
@@ -25,3 +25,14 @@ class HotelModel(banco.Model):
             'preco': self.preco,
             'cidade': self.cidade
         }
+    
+    @classmethod
+    def find_hotel(cls, hotel_id):
+        hotel = cls.query.filter_by(hotel_id=hotel_id).all()
+        if hotel:
+            return hotel
+        return None
+    
+    def save_register(self):
+        banco.session.add(self)
+        banco.session.commit()
