@@ -28,7 +28,7 @@ class HotelModel(banco.Model):
     
     @classmethod
     def find_hotel(cls, hotel_id):
-        hotel = cls.query.filter_by(hotel_id=hotel_id).all()
+        hotel = cls.query.filter_by(hotel_id=hotel_id).first()
         if hotel:
             return hotel
         return None
@@ -36,3 +36,4 @@ class HotelModel(banco.Model):
     def save_register(self):
         banco.session.add(self)
         banco.session.commit()
+    
