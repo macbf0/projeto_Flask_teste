@@ -37,3 +37,9 @@ class HotelModel(banco.Model):
         banco.session.add(self)
         banco.session.commit()
     
+    def update_hotel(self, nome, estrelas, preco, cidade):
+        self.nome = nome
+        self.estrelas = estrelas
+        self.preco = preco
+        self.cidade = cidade
+    
