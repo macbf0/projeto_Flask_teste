@@ -42,4 +42,8 @@ class HotelModel(banco.Model):
         self.estrelas = estrelas
         self.preco = preco
         self.cidade = cidade
+
+    def delete_register(self):
+        banco.session.delete(self)
+        banco.session.commit()
     
