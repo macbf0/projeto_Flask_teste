@@ -16,7 +16,6 @@ class Hotel(Resource):
 
     def get(self,hotel_id):
         hotel = HotelModel.find_hotel(hotel_id)
-
         if hotel:
             return hotel.transform_json()
         return {'message':'Hotel not found'}, 404
@@ -24,7 +23,6 @@ class Hotel(Resource):
     def post(self,hotel_id):
         if HotelModel.find_hotel(hotel_id):
             return {"message":"Hotel '{}' is alredy registered".format(hotel_id)}
-
         dados = Hotel.argumentos.parse_args()
         hotel = HotelModel(hotel_id, **dados)
         hotel.save_register()
@@ -37,7 +35,6 @@ class Hotel(Resource):
             finded_hotel.update_hotel(**dados)
             finded_hotel.save_register()
             return finded_hotel.transform_json()
-        
         new_hotel = HotelModel(hotel_id, **dados)
         new_hotel.save_register()
         return new_hotel.transform_json()
