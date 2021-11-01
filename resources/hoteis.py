@@ -28,7 +28,7 @@ class Hotel(Resource):
         try:
             hotel.save_register()
         except:
-            return {'message':'Aplication could not save'}
+            return {'message':'Application could not save'}
         return hotel.transform_json()
 
     def put(self,hotel_id):
@@ -39,13 +39,13 @@ class Hotel(Resource):
             try:
                 finded_hotel.save_register()
             except:
-                return {'message':'Aplication could not save'}
+                return {'message':'Application could not save'}
             return finded_hotel.transform_json()
         new_hotel = HotelModel(hotel_id, **dados)
         try:
             new_hotel.save_register()
         except:
-            return {'message':'Aplication could not save'}
+            return {'message':'Application could not save'}
         return new_hotel.transform_json()
     
     def delete(self, hotel_id):
@@ -54,7 +54,7 @@ class Hotel(Resource):
             try:
                 delete_hotel.delete_register()
             except:
-                return {'message':'Aplication could not delete'}
+                return {'message':'Application could not delete'}
             return {'message':'Hotel Deleted'}
         return {'message':'Hotel not found'}
         

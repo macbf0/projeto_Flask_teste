@@ -11,8 +11,11 @@ class User(Resource):
     def delete(self, user):
         user_delete = UserModel.find_user(user)
         if user_delete:
-            user_delete.delete_register()
-            return {'message':'User deleted'}
+            try:
+                user_delete.delete_register()
+                return {'message':'User deleted'}
+            except:
+                return {'message':'Application could not delete'}
         return {'message':'User not found'}, 404
 
 class UserRegister(Resource):
@@ -27,6 +30,9 @@ class UserRegister(Resource):
             return {'message':'User has already been registered'}
         
         user = UserModel(**dados)
-        user.save_register()
+        try:
+            user.save_register()
+        except:
+            return {'message':'Application could not save'}
         return user.transform_json()
         
