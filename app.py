@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restful import Api
 from resources.hoteis import Hoteis, Hotel
-from resources.users import User
+from resources.users import User, UserRegister
 
 
 app = Flask(__name__)
@@ -17,6 +17,7 @@ def cria_banco():
 api.add_resource(Hoteis,'/hoteis')
 api.add_resource(Hotel, '/<string:hotel_id>')
 api.add_resource(User, '/users/<string:user>')
+api.add_resource(UserRegister, '/cadastro')
 
 if __name__ == '__main__':
     from sql_alchemy import banco
