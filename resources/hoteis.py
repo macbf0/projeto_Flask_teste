@@ -25,7 +25,10 @@ class Hotel(Resource):
             return {"message":"Hotel '{}' is alredy registered".format(hotel_id)}
         dados = Hotel.argumentos.parse_args()
         hotel = HotelModel(hotel_id, **dados)
-        hotel.save_register()
+        try:
+            hotel.save_register()
+        except:
+            return {'message':'Aplication could not save'}
         return hotel.transform_json()
 
     def put(self,hotel_id):
@@ -33,16 +36,25 @@ class Hotel(Resource):
         finded_hotel = HotelModel.find_hotel(hotel_id)
         if finded_hotel:
             finded_hotel.update_hotel(**dados)
-            finded_hotel.save_register()
+            try:
+                finded_hotel.save_register()
+            except:
+                return {'message':'Aplication could not save'}
             return finded_hotel.transform_json()
         new_hotel = HotelModel(hotel_id, **dados)
-        new_hotel.save_register()
+        try:
+            new_hotel.save_register()
+        except:
+            return {'message':'Aplication could not save'}
         return new_hotel.transform_json()
     
     def delete(self, hotel_id):
         delete_hotel = HotelModel.find_hotel(hotel_id)
         if delete_hotel:
-            delete_hotel.delete_register()
+            try:
+                delete_hotel.delete_register()
+            except:
+                return {'message':'Aplication could not delete'}
             return {'message':'Hotel Deleted'}
         return {'message':'Hotel not found'}
         
